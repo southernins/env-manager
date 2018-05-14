@@ -1,8 +1,8 @@
 {
-  "name": "southernins/build-tool",
-  "description": "Tool to create build files for deploying to AWS Elastic Beanstalk",
+  "name": "southernins/env-manager",
+  "description": "Commands to help check/verify ENV files are managed properly",
   "license": "MIT",
-  "keywords": ["build"],
+  "keywords": ["laravel", "env"],
   "authors": [
     {
       "name": "Nathan Crews",
@@ -10,22 +10,22 @@
     }
   ],
   "require": {
-    "illuminate/support": "~5.1",
-    "illuminate/console": "~5.1"
+    "illuminate/support": "~5.5",
+    "illuminate/console": "~5.5"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.7"
   },
   "autoload": {
     "psr-4": {
-      "SouthernIns\\BuildTool\\": "src/"
+      "SouthernIns\\EnvManager\\": "src/"
     }
   },
 
   "extra": {
     "laravel": {
       "providers": [
-        "SouthernIns\\BuildTool\\BuildServiceProvider"
+        "SouthernIns\\EnvManager\\EnvManagerServiceProvider"
       ]
     }
   },
