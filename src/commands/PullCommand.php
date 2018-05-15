@@ -78,7 +78,7 @@ class PullCommand extends Command {
         $this->info($sourcePath);
         $this->info($localPath);
 
-        if( !$s3::has( $localPath )){
+        if( !$s3->has( $localPath )){
             $this->error( "File: " . $sourcePath . " could not be found" );
         }
 

@@ -26,7 +26,7 @@ class PushCommand extends Command {
      *
      * @var string
      */
-    protected $signature = 'env:push {file*?}';
+    protected $signature = 'env:push {file?}';
 
 
     /**
