@@ -64,7 +64,8 @@ class PullCommand extends Command {
      */
     public function handle() {
 
-        $this->processFiles( $this->pullFile );
+        $callback = [ $this, 'pullFile' ];
+        $this->processFiles(  $callback );
 
     } // END function handle()
 

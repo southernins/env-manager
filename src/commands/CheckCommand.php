@@ -65,9 +65,27 @@ class CheckCommand extends Command {
      */
     public function handle() {
 
-
+        $callback = [ $this, 'checkFile' ];
+        $this->processFiles(  $callback );
 
     } // END function handle()
+
+
+    public function checkFile( $sourcePath, $localPath, $s3 ){
+
+        $this->info($sourcePath);
+        $this->info($localPath);
+
+        if( !$s3::has( $localPath )){
+            $this->error( "File: " . $sourcePath . " could not be found" );
+        }
+
+        if( !Storage::has( $localPath )){
+            $this->error( "File: " . $localPath . " could not be found" );
+        }
+//            $s3->put( $sourcePath, $fileContent);
+
+    }
 
 
 } //- END class CheckCommand{}

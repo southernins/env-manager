@@ -58,7 +58,8 @@ class PushCommand extends Command {
      */
     public function handle() {
 
-        $this->processFiles( $this->pushFile );
+        $callback = [ $this, 'pushFile' ];
+        $this->processFiles(  $callback );
 
     } // END function handle()
 
