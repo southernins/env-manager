@@ -3,7 +3,6 @@
  *
  */
 
-//namespace App\Console\Commands;
 namespace SouthernIns\EnvManager\Commands;
 
 
