@@ -64,8 +64,12 @@ class PullCommand extends Command {
      */
     public function handle() {
 
+        // Hoping with file* that even a single option passed in
+        // comes as an array with one value for looping purposes
+        $files = $this->argument( 'file' ) ?? $this->all;
+
         $callback = [ $this, 'pullFile' ];
-        $this->processFiles(  $callback );
+        $this->processFiles(  $callback, $files );
 
     } // END function handle()
 

@@ -6,6 +6,7 @@
 namespace SouthernIns\EnvManager\Commands;
 
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Storage;
 
 
 /**
@@ -45,11 +46,7 @@ trait EnvFiles {
         $this->source_path  =  Config::get( 'env-manager.source_path' );
     }
 
-    protected function processFiles( $callback ){
-
-        // Hoping with file* that even a single option passed in
-        // comes as an array with one value for looping purposes
-        $files = $this->argument( 'file' ) ?? $this->all;
+    protected function processFiles( $callback, $files ){
 
         $s3 = Storage::disk( 's3' );
 
