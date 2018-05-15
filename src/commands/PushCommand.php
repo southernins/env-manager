@@ -70,10 +70,17 @@ class PushCommand extends Command {
             $sourcePath = $this->source_path . $file;
             $localPath = $this->local_path . $file;
 
+
 //            $fileContent = $this->local_path . $file;
 
+            $this->info( $file );
             $this-> info( "Source File : " . $sourcePath );
             $this-> info( "Local File : " . $localPath );
+
+
+            if( !Storage::has( $localPath )){
+                $this->error( "File: " . $localPath . " could not be found" );
+            }
 
 //            $s3->put( $sourcePath, $fileContent);
         }
