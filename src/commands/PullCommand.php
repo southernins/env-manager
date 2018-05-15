@@ -64,9 +64,23 @@ class PullCommand extends Command {
      */
     public function handle() {
 
-        
+        $this->processFiles( $this->pullFile );
 
     } // END function handle()
+
+    public function pullFile( $sourcePath, $localPath, $s3 ){
+
+        $this->info($sourcePath);
+        $this->info($localPath);
+
+        if( !$s3::has( $localPath )){
+            $this->error( "File: " . $sourcePath . " could not be found" );
+        }
+
+//            $s3->put( $sourcePath, $fileContent);
+
+    }
+
 
 
 } //- END class PullCommand{}
