@@ -55,7 +55,6 @@ class PullCommand extends Command {
     } // -END __construct
 
 
-
     /**
      * Execute the console command.
      *
