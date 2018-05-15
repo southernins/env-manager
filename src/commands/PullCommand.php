@@ -19,7 +19,12 @@ namespace SouthernIns\EnvManager\Commands;
 
 
 
-class CheckCommand extends Command {
+class PullCommand extends Command {
+
+    /*
+     * Trait with common properties
+     */
+    use \EnvFiles;
 
 
     /**
@@ -27,7 +32,7 @@ class CheckCommand extends Command {
      *
      * @var string
      */
-    protected $signature = 'env:check {file?}';
+    protected $signature = 'env:pull {file?}';
 
 
     /**
@@ -35,7 +40,7 @@ class CheckCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Check local Environment File(s) against source.';
+    protected $description = 'Pull Environment File(s) from source.';
 
 
     /**
@@ -50,6 +55,7 @@ class CheckCommand extends Command {
     } // -END __construct
 
 
+
     /**
      * Execute the console command.
      *
@@ -57,9 +63,9 @@ class CheckCommand extends Command {
      */
     public function handle() {
 
-
+        
 
     } // END function handle()
 
 
-} //- END class CheckCommand{}
+} //- END class PullCommand{}
