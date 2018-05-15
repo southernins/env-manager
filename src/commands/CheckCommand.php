@@ -19,13 +19,14 @@ use Illuminate\Console\Command;
 
 
 
+
 class CheckCommand extends Command {
 
     /*
      * Trait with common properties
      */
-    use \EnvFiles;
-    
+    use EnvFiles;
+
 
     /**
      * The name and signature of the console command.

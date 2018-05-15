@@ -17,7 +17,7 @@ class PushCommand extends Command {
     /*
      * Trait with common properties
      */
-    use \EnvFiles;
+    use EnvFiles;
 
 
     /**

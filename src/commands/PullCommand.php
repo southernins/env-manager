@@ -24,7 +24,7 @@ class PullCommand extends Command {
     /*
      * Trait with common properties
      */
-    use \EnvFiles;
+    use EnvFiles;
 
 
     /**
