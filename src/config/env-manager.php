@@ -17,7 +17,7 @@ return [
     /*
      * Local storage path for env files ( default app root )
      */
-    'local_path'  => env( 'LOCAL_ENV_PATH', app_path( )),
+    'local_path'  => env( 'LOCAL_ENV_PATH', base_path( )),
 
 
 ];

@@ -53,8 +53,8 @@ trait EnvFiles {
         // Loop to handle all/multiple files
         foreach( (array) $files as $file ){
 
-            $sourcePath = $this->source_path . $file;
-            $localPath = $this->local_path . $file;
+            $sourcePath = $this->source_path . '/' . $file;
+            $localPath = $this->local_path . '/' . $file;
 
             $param_arr = [
                 'sourcePath'    => $sourcePath,
