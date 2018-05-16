@@ -14,7 +14,14 @@ use SouthernIns\EnvManager\Commands\PullCommand;
 class EnvManagerServiceProvider extends ServiceProvider {
 
     public function boot(){
+
         // Boot runs after ALL providers are registered
+
+
+        $this->publishes([
+            __DIR__.'/config/env-manager.php' => config_path('env-manager.php'),
+        ]);
+
     } //- END function boot()
 
     public function register(){

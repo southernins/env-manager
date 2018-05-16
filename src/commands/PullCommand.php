@@ -75,10 +75,10 @@ class PullCommand extends Command {
 
     public function pullFile( $sourcePath, $localPath, $s3 ){
 
-        $this->info($sourcePath);
-        $this->info($localPath);
+        $this->info( $sourcePath );
+        $this->info( $localPath );
 
-        if( !$s3->has( $localPath )){
+        if( !$s3->has( $sourcePath )){
             $this->error( "File: " . $sourcePath . " could not be found" );
         }
 

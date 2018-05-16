@@ -16,7 +16,7 @@ namespace SouthernIns\EnvManager\Commands;
 //use SouthernIns\BuildTool\Shell\NPM;
 
 use Illuminate\Console\Command;
-
+use Illuminate\Support\Facades\Storage;
 
 
 
@@ -77,10 +77,10 @@ class CheckCommand extends Command {
 
     public function checkFile( $sourcePath, $localPath, $s3 ){
 
-        $this->info($sourcePath);
-        $this->info($localPath);
+        $this->info( $sourcePath );
+        $this->info( $localPath );
 
-        if( !$s3->has( $localPath )){
+        if( !$s3->has( $sourcePath )){
             $this->error( "File: " . $sourcePath . " could not be found" );
         }
 

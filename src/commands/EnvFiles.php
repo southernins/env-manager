@@ -56,11 +56,6 @@ trait EnvFiles {
             $sourcePath = $this->source_path . $file;
             $localPath = $this->local_path . $file;
 
-
-//            $fileContent = $this->local_path . $file;
-
-//            $callback( $stuff );
-//            call_user_func( $callback );
             $param_arr = [
                 'sourcePath'    => $sourcePath,
                 'localPath'     => $localPath,
@@ -70,6 +65,7 @@ trait EnvFiles {
             call_user_func_array( $callback, $param_arr );
 
         }
+
     } // -END function processFiles()
 
 } // -END trait EnvFiles {}
