@@ -3,23 +3,16 @@
  *
  */
 
-//namespace App\Console\Commands;
 namespace SouthernIns\EnvManager\Commands;
-
-//use Carbon\Carbon;
-//use Illuminate\Support\Facades\App;
-//use Illuminate\Support\Facades\Config;
-//use Illuminate\Support\Facades\Cache;
-//use Symfony\Component\Process\Process;
-//use Symfony\Component\Process\Exception\ProcessFailedException;
-//use SouthernIns\BuildTool\Shell\Composer;
-//use SouthernIns\BuildTool\Shell\NPM;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
 
-
+/**
+ * Class CheckCommand
+ * @package SouthernIns\EnvManager\Commands
+ */
 class CheckCommand extends Command {
 
     /*
@@ -53,7 +46,7 @@ class CheckCommand extends Command {
 
         parent::__construct();
 
-        $this->setPathsFromConfig();
+        $this->initConfig();
 
     } // -END __construct
 

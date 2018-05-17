@@ -46,7 +46,7 @@ class PushCommand extends Command {
 
         parent::__construct();
 
-        $this->setPathsFromConfig();
+        $this->initConfig();
 
     } // -END __construct
 
@@ -67,16 +67,14 @@ class PushCommand extends Command {
 
     } // END function handle()
 
-    public function pushFile( $sourcePath, $localPath, $s3 ){
+    public function pushFile( $sourcePath, $localPath, $s3, $disk ){
 
-        $this->info( $sourcePath );
-        $this->info( $localPath );
-
-
-        if( !Storage::has( $localPath )){
+        // bounce with error when source( remote ) file does not exist )
+        if( !$disk->has( $localPath )){
             $this->error( "File: " . $localPath . " could not be found" );
         }
 
+        $this->line( "Committing: " . $localPath );
 //            $s3->put( $sourcePath, $fileContent);
 
     } // -END pushFile

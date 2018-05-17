@@ -3,25 +3,19 @@
  *
  */
 
-//namespace App\Console\Commands;
 namespace SouthernIns\EnvManager\Commands;
 
-//use Carbon\Carbon;
-//use Illuminate\Support\Facades\App;
-//use Illuminate\Support\Facades\Config;
-//use Illuminate\Support\Facades\Cache;
-//use Symfony\Component\Process\Process;
-//use Symfony\Component\Process\Exception\ProcessFailedException;
-//use SouthernIns\BuildTool\Shell\Composer;
-//use SouthernIns\BuildTool\Shell\NPM;
-
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Console\Command;
 
 
-
+/**
+ * Class PullCommand
+ * @package SouthernIns\EnvManager\Commands
+ */
 class PullCommand extends Command {
 
-    /*
+    /**
      * Trait with common properties
      */
     use EnvFiles;
@@ -52,7 +46,7 @@ class PullCommand extends Command {
 
         parent::__construct();
 
-        $this->setPathsFromConfig();
+        $this->initConfig();
 
     } // -END __construct
 
@@ -73,19 +67,36 @@ class PullCommand extends Command {
 
     } // END function handle()
 
-    public function pullFile( $sourcePath, $localPath, $s3 ){
+    /**
+     * Callback function to proccess each file for this command
+     * @param $sourcePath
+     * @param $localPath
+     * @param $s3
+     */
+    public function pullFile( $sourcePath, $localPath, $s3, $disk ){
 
-        $this->info( $sourcePath );
-        $this->info( $localPath );
-
+        // bounce with error when source( remote ) file does not exist )
         if( !$s3->has( $sourcePath )){
             $this->error( "File: " . $sourcePath . " could not be found" );
+            return;
         }
 
-//            $s3->put( $sourcePath, $fileContent);
+        $this->line( "Updating: " . $localPath );
 
-    }
+        if( $disk->has( $localPath )){
 
+            // if a local file is found alert the user and get a confrimation before overriting
+            if( !$this->confirm( "This will overwrite your local file. Continue?" )){
+                $this->error( "Moving On." );
+                return;
+            }
+        }
+
+        // Copy S3 file into Local file
+        $disk->put( $localPath, $s3->get( $sourcePath ));
+
+
+    } // -END function pullFile()
 
 
 } //- END class PullCommand{}
