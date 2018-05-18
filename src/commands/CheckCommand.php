@@ -69,11 +69,16 @@ class CheckCommand extends Command {
     } // END function handle()
 
 
+    /**
+     * Callback to use on each file being processed.
+     *
+     * @param $sourcePath
+     * @param $localPath
+     * @param $s3
+     * @param $disk
+     * @return int|void
+     */
     public function checkFile( $sourcePath, $localPath, $s3, $disk ){
-
-//        $this->info( $sourcePath );
-//        $this->info( $localPath );
-
 
         if( !$disk->has( $localPath )){
             $this->error( "File: " . $localPath . " could not be found" );
@@ -91,25 +96,27 @@ class CheckCommand extends Command {
 
         $localHash = sha1( $disk->get( $localPath) );
 
-
-//        $this->info($sourceHash );
-//        $this->info($localHash );
-
         if( $sourceHash != $localHash ){
             $this->error( "There are ENV Differences that need to be addressed in: " . $localPath );
 
-            $tmpFile = tmpfile();
+            $tmpfname = tempnam("/tmp", "FOO");
 
-            $disk->put( $tmpFile, $source );
+            $handle = fopen($tmpfname, "w");
+            fwrite($handle, $source);
+            fclose($handle);
 
-            Diff::files( $localPath, stream_get_meta_data($tmpFile)['uri'] );
+            Diff::files( $localPath, $tmpfname );
 
+            unlink($tmpfname);
+
+            return 1;
+
+
+        } else {
+            $this->info( "No Changes In file: " . $localPath );
         }
 
-
-//            $s3->put( $sourcePath, $fileContent);
-
-    }
+    } //- END function checkFile()
 
 
 } //- END class CheckCommand{}

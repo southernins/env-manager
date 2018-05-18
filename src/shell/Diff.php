@@ -12,20 +12,33 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
 
+/**
+ * Class Diff
+ * @package SouthernIns\EnvManager\Shell
+ */
 class Diff {
 
+    /**
+     * Run diff cli tool given two file paths
+     *
+     * @param $pathOne
+     * @param $pathTwo
+     */
     static function files( $pathOne, $pathTwo ){
 
-        $diff = new Process( 'diff ' . $pathOne , ' ' , $pathTwo );
+        $diff = new Process( 'diff ' . $pathOne . ' ' . $pathTwo );
         $diff->setTimeout(90);
-        $diff->run();
+        $diff->start();
 
-        if( !$diff->isSuccessful() ){
-            throw new ProcessFailedException( $diff );
+        foreach ($diff as $type => $data) {
+            echo "\n " . $type;
+            if ($diff::OUT === $type) {
+                echo "\n=>".$data;
+            } else { // $process::OUT === $type
+                echo "\n".$data;
+            }
         }
 
-        // return Current Git Branch Name from command output
-        return trim( $diff->getOutput() );
-    }
+    } //- END function files()
 
 } //- END class Diff {}
