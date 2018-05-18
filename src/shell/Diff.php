@@ -31,7 +31,7 @@ class Diff {
         $diff->start();
 
         foreach ($diff as $type => $data) {
-            echo "\n " . $type;
+
             if ($diff::OUT === $type) {
                 echo "\n=>".$data;
             } else { // $process::OUT === $type

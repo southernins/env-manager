@@ -37,6 +37,11 @@ class CheckCommand extends Command {
      */
     protected $description = 'Check local Environment File(s) against source.';
 
+    /**
+     * command failure flag.
+     * @var bool
+     */
+    protected $is_failed;
 
     /**
      * Create a new command instance.
@@ -65,6 +70,10 @@ class CheckCommand extends Command {
 
         $callback = [ $this, 'checkFile' ];
         $this->processFiles(  $callback, $files );
+
+        if( $this->is_failed ){
+            return 1;
+        }
 
     } // END function handle()
 
@@ -109,8 +118,7 @@ class CheckCommand extends Command {
 
             unlink($tmpfname);
 
-            return 1;
-
+            $this->is_failed = true;
 
         } else {
             $this->info( "No Changes In file: " . $localPath );
