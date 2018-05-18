@@ -37,25 +37,13 @@ class PushCommand extends Command {
 
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct() {
-
-        parent::__construct();
-
-        $this->initConfig();
-
-    } // -END __construct
-
-
-    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function handle() {
+
+        $this->initConfig();
 
         // Hoping with file* that even a single option passed in
         // comes as an array with one value for looping purposes

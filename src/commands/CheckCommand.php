@@ -42,20 +42,7 @@ class CheckCommand extends Command {
      * @var bool
      */
     protected $is_failed;
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct() {
-
-        parent::__construct();
-
-        $this->initConfig();
-
-    } // -END __construct
-
+    
 
     /**
      * Execute the console command.
@@ -63,6 +50,8 @@ class CheckCommand extends Command {
      * @return mixed
      */
     public function handle() {
+
+        $this->initConfig();
 
         // Hoping with file* that even a single option passed in
         // comes as an array with one value for looping purposes
