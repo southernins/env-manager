@@ -7,6 +7,7 @@ namespace SouthernIns\EnvManager\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
+use SouthernIns\EnvManager\Shell\Diff;
 
 
 /**
@@ -68,18 +69,44 @@ class CheckCommand extends Command {
     } // END function handle()
 
 
-    public function checkFile( $sourcePath, $localPath, $s3 ){
+    public function checkFile( $sourcePath, $localPath, $s3, $disk ){
 
-        $this->info( $sourcePath );
-        $this->info( $localPath );
+//        $this->info( $sourcePath );
+//        $this->info( $localPath );
+
+
+        if( !$disk->has( $localPath )){
+            $this->error( "File: " . $localPath . " could not be found" );
+            return;
+        }
 
         if( !$s3->has( $sourcePath )){
-            $this->error( "File: " . $sourcePath . " could not be found" );
+            $this->error( "No Remote file matching " . $localPath . " exists for comparison." );
+            return;
         }
 
-        if( !Storage::has( $localPath )){
-            $this->error( "File: " . $localPath . " could not be found" );
+        $source = $s3->get( $sourcePath );
+
+        $sourceHash = sha1( $source ) ;
+
+        $localHash = sha1( $disk->get( $localPath) );
+
+
+//        $this->info($sourceHash );
+//        $this->info($localHash );
+
+        if( $sourceHash != $localHash ){
+            $this->error( "There are ENV Differences that need to be addressed in: " . $localPath );
+
+            $tmpFile = tmpfile();
+
+            $disk->put( $tmpFile, $source );
+
+            Diff::files( $localPath, stream_get_meta_data($tmpFile)['uri'] );
+
         }
+
+
 //            $s3->put( $sourcePath, $fileContent);
 
     }
