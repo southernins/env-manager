@@ -64,6 +64,18 @@ class PushCommand extends Command {
         $this->line( "Committing: " . $localPath );
 //            $s3->put( $sourcePath, $fileContent);
 
+        if( $s3->has( $sourcePath )){
+
+            // if a local file is found alert the user and get a confirmation before overwriting
+            if( !$this->confirm( "This will overwrite your source file. Continue?" )){
+                $this->error( "Moving On." );
+                return;
+            }
+        }
+
+        // Copy S3 file into Local file
+        $s3->put( $sourcePath, $s3->get( $localPath ));
+
     } // -END pushFile
 
 

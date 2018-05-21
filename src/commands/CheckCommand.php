@@ -42,7 +42,7 @@ class CheckCommand extends Command {
      * @var bool
      */
     protected $is_failed;
-    
+
 
     /**
      * Execute the console command.

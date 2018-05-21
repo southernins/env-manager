@@ -23,7 +23,6 @@ return [
      * List of files to process when no single file is specified.
      */
     'all_files' => [
-        '.env.local',
         '.env.production',
         '.env.staging'
     ]
