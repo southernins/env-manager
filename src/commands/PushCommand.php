@@ -74,7 +74,7 @@ class PushCommand extends Command {
         }
 
         // Copy S3 file into Local file
-        $s3->put( $sourcePath, $s3->get( $localPath ));
+        $s3->put( $sourcePath, $disk->get( $localPath ));
 
     } // -END pushFile
 
