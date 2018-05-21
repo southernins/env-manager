@@ -18,7 +18,7 @@ class EnvManagerServiceProvider extends ServiceProvider {
         // Boot runs after ALL providers are registered
         $this->publishes([
             __DIR__.'/config/env-manager.php' => config_path('env-manager.php'),
-            __DIR__.'/githooks/pre-commit' =>  base_path() .  '/.git/hooks/pre-commit',
+//            __DIR__.'/githooks/pre-commit' =>  base_path() .  '/.git/hooks/pre-commit',
         ]);
 
     } //- END function boot()
