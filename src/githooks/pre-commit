@@ -10,9 +10,14 @@
 
 #exit 1;
 
-cd ../../
+## Found ${PWD##*/} in q/a below
+## https://stackoverflow.com/questions/1371261/get-current-directory-name-without-full-path-in-a-bash-script
+projectDir=${PWD##*/}
 
-php artisan env:check ||  exit 1;
+#php artisan env:check ||  exit 1;
+
+vagrant ssh -c "cd /vagrant/$projectDir/; php artisan env:check"  || exit 1;
+
 
 # If there are whitespace errors, print the offending file names and fail.
 #exec git diff-index --check --cached $against --
