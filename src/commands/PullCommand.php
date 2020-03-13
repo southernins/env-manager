@@ -73,7 +73,7 @@ class PullCommand extends Command {
 
         if( $disk->has( $localPath )){
 
-            // if a local file is found alert the user and get a confrimation before overriting
+            // if a local file is found alert the user and get a confirmation before overwriting
             if( !$this->confirm( "This will overwrite your local file. Continue?" )){
                 $this->error( "Moving On." );
                 return;
