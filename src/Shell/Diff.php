@@ -26,7 +26,7 @@ class Diff {
      */
     static function files( $pathOne, $pathTwo ){
 
-        $diff = new Process( 'diff ' . $pathOne . ' ' . $pathTwo );
+        $diff = new Process( ['diff', $pathOne, $pathTwo] );
         $diff->setTimeout(90);
         $diff->start();
 
