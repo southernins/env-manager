@@ -64,6 +64,8 @@ class CheckCommand extends Command {
             return 1;
         }
 
+        return 0;
+
     } // END function handle()
 
 

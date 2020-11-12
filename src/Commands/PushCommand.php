@@ -52,6 +52,8 @@ class PushCommand extends Command {
         $callback = [ $this, 'pushFile' ];
         $this->processFiles(  $callback, $files );
 
+        return 0;
+
     } // END function handle()
 
     public function pushFile( $sourcePath, $localPath, $s3, $disk ){
