@@ -34,7 +34,7 @@ class PullCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Pull Environment File(s) from source.';
+    protected $description = 'Pull Environment File(s) from Remote.';
 
 
     /**
@@ -59,15 +59,15 @@ class PullCommand extends Command {
 
     /**
      * Callback function to proccess each file for this command
-     * @param $sourcePath
+     * @param $remotePath
      * @param $localPath
      * @param $s3
      */
-    public function pullFile( $sourcePath, $localPath, $s3, $disk ){
+    public function pullFile( $remotePath, $localPath, $s3, $disk ){
 
-        // bounce with error when source( remote ) file does not exist )
-        if( !$s3->has( $sourcePath )){
-            $this->error( "File: " . $sourcePath . " could not be found" );
+        // bounce with error when remote file does not exist )
+        if( !$s3->has( $remotePath )){
+            $this->error( "File: " . $remotePath . " could not be found" );
             return;
         }
 
@@ -83,7 +83,7 @@ class PullCommand extends Command {
         }
 
         // Copy S3 file into Local file
-        $disk->put( $localPath, $s3->get( $sourcePath ));
+        $disk->put( $localPath, $s3->get( $remotePath ));
 
 
     } // -END function pullFile()
