@@ -33,7 +33,7 @@ class PushCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Push Local Environment File(s) to source.';
+    protected $description = 'Push Local Environment File(s) to remote.';
 
 
     /**
@@ -56,27 +56,27 @@ class PushCommand extends Command {
 
     } // END function handle()
 
-    public function pushFile( $sourcePath, $localPath, $s3, $disk ){
+    public function pushFile( $remotePath, $localPath, $s3, $disk ){
 
-        // bounce with error when source( remote ) file does not exist )
+        // bounce with error when remote file does not exist )
         if( !$disk->has( $localPath )){
             $this->error( "File: " . $localPath . " could not be found" );
         }
 
         $this->line( "Committing: " . $localPath );
-//            $s3->put( $sourcePath, $fileContent);
+//            $s3->put( $remotePath, $fileContent);
 
-        if( $s3->has( $sourcePath )){
+        if( $s3->has( $remotePath )){
 
             // if a local file is found alert the user and get a confirmation before overwriting
-            if( !$this->confirm( "This will overwrite your source file. Continue?" )){
+            if( !$this->confirm( "This will overwrite your remote file. Continue?" )){
                 $this->error( "Moving On." );
                 return;
             }
         }
 
         // Copy S3 file into Local file
-        $s3->put( $sourcePath, $disk->get( $localPath ));
+        $s3->put( $remotePath, $disk->get( $localPath ));
 
     } // -END pushFile
 
