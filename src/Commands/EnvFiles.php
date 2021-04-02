@@ -24,13 +24,13 @@ trait EnvFiles {
     /*
      * local ENV path
      */
-    protected $local_path;
+    protected $localDir;
 
 
     /*
-     * Source ENV path
+     * Remote ENV path
      */
-    protected $source_path;
+    protected $remoteDir;
 
     /**
      * @var Storage file system object
@@ -38,12 +38,12 @@ trait EnvFiles {
     protected $disk;
 
     /**
-     * Function to get local and source path from configuration files
+     * Function to get local and remote path from configuration files
      */
     protected function initConfig(){
 
-        $this->local_path   = Config::get( 'env-manager.local_path' );
-        $this->source_path  = Config::get( 'env-manager.source_path' );
+        $this->localDir   = Config::get( 'env-manager.local_directory' );
+        $this->remoteDir  = Config::get( 'env-manager.remote_directory' );
         $this->all          = Config::get( 'env-manager.all_files' );
 
         $this->createDisk();
@@ -62,7 +62,7 @@ trait EnvFiles {
         $config = [
 
             'driver' => 'local',
-            'root' => $this->local_path,
+            'root' => $this->localDir,
 
         ];
 
@@ -88,11 +88,11 @@ trait EnvFiles {
         // Loop to handle all/multiple files
         foreach( (array) $files as $file ){
 
-            $sourcePath = $this->source_path . '/' . $file;
-            $localPath = $this->local_path . '/' . $file;
+            $remotePath = $this->remoteDir . '/' . $file;
+            $localPath = $this->localDir . '/' . $file;
 
             $param_arr = [
-                'sourcePath'    => $sourcePath,
+                'remotePath'    => $remotePath,
                 'localPath'     => $localPath,
                 's3'            => $s3,
                 'disk'          => $this->disk
