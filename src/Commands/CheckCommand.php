@@ -35,7 +35,7 @@ class CheckCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Check local Environment File(s) against source.';
+    protected $description = 'Check local Environment File(s) against remote.';
 
     /**
      * command failure flag.
@@ -72,38 +72,39 @@ class CheckCommand extends Command {
     /**
      * Callback to use on each file being processed.
      *
-     * @param $sourcePath
+     * @param $remotePath
      * @param $localPath
      * @param $s3
      * @param $disk
      * @return int|void
      */
-    public function checkFile( $sourcePath, $localPath, $s3, $disk ){
+    public function checkFile( $remotePath, $localPath, $s3, $disk ){
 
         if( !$disk->has( $localPath )){
             $this->error( "File: " . $localPath . " could not be found" );
             return;
         }
 
-        if( !$s3->has( $sourcePath )){
-            $this->error( "No Remote file matching " . $localPath . " exists for comparison." );
+        if( !$s3->has( $remotePath )){
+            $this->error( "No Remote version of " . $localPath . " exists for comparison." );
             return;
         }
 
-        $source = $s3->get( $sourcePath );
+        $remote = $s3->get( $remotePath );
 
-        $sourceHash = sha1( $source ) ;
+        $remoteHash = sha1( $remote ) ;
 
         $localHash = sha1( $disk->get( $localPath) );
 
-        if( $sourceHash != $localHash ){
+        if( $remoteHash != $localHash ){
             $this->error( "There are ENV Differences that need to be addressed in: " . $localPath );
 
+            // Write out remote file locally for usage with Diff
             $tmpfname = tempnam("/tmp", "FOO");
 
-            $handle = fopen($tmpfname, "w");
-            fwrite($handle, $source);
-            fclose($handle);
+            $handle = fopen( $tmpfname, "w" );
+            fwrite( $handle, $remote );
+            fclose( $handle );
 
             Diff::files( $localPath, $tmpfname );
 
