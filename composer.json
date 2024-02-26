@@ -10,8 +10,8 @@
     }
   ],
     "require": {
-        "illuminate/support": "8.* || 9.*",
-        "illuminate/console": "8.* || 9.*",
+        "illuminate/support": "9.* || 10.*",
+        "illuminate/console": "9.* || 10.*",
         "aws/aws-sdk-php": "^3.36",
         "league/flysystem-aws-s3-v3": "^3.0"
     },
